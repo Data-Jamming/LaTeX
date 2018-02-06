@@ -34,7 +34,8 @@ We aim to explore the relationships between lyrical content and different music 
 
 \section{Related Work}
 
-\IEEEPARstart{T}{here} exists numerous attempts at classifying songs into genres solely by their lyrical content by classification methods including neural networks and commonly used classification models such as SVM, k- nearest neighbor, etc. \\ \\One article used both recurrent neural network models and simple classifier methods to reclassify a dataset of around 500,000 song lyrics and 20 genres, similar to the dataset to be used in this study of 380,000 song lyrics and 10 genres. However, instead of just using a feature set containing syllable count, line count, word count, rhyme frequency, and rhyme scheme they also decided to use a hierarchical attention network. This relies on the model learning and using the word embedding?s, hierarchical attention, and gated recurrent units rather than hand selected features. This study resulted in a trend between the model complexity and classification accuracy, showing that as complexity increases so does the accuracy. Thus, the neural net performed much more accurately throughout their study \cite{tsaptsinos}.
+\IEEEPARstart{T}{here} exist numerous attempts at classifying songs into genres solely by their lyrical content using neural networks and more traditional models such as SVM, k- nearest neighbor, etc.
+Tsaptsinos \cite{tsaptsinos} extended the use of hierarchical attention networks (HAN) -- a type of recurrent neural network previously proposed and employed by Yang et al. \cite{Yang} for document classification -- to the lyrics-based music genre classification problem, demonstrating the model's ability to outperform the Long Short-Term Memory (LSTM) model when classifying across 117 genres. The HAN model performed particularly well when attention was placed at the line-level, as opposed to the segment level; that is, the model's accuracy benefited from considering lines individually instead of a block of lines (e.g. a refrain) as a whole unit. \par
 
 %-------------------------------------------------------------------------------------------------------------------
 
@@ -116,6 +117,9 @@ A.~Tsaptsinos, \emph{Lyrics-Based Music Genre Classification Using a Hierarchica
 
 \bibitem{NLTK}
 Bird, Steven, Edward Loper and Ewan Klein (2009), \emph{Natural Language Processing with Python}. \relax O'Reilly Media Inc.
+
+\bibitem{Yang}
+Z. Yang, D. Yang, C. Dyer, X. He, A. Smola, E. Hovy (2014), \emph{Hierarchical Attention Networks for Document Classification}.
 
 \bibitem{KaggleDataset}
 GyanendraMishra (2017), \emph{380,000+ Lyrics from MetroLyrics}, https://www.kaggle.com/gyani95/380000-lyrics-from-metrolyrics.
