@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  3 FEB 2018 15:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  5 FEB 2018 16:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -136,38 +136,86 @@ LaTeX Font Info:    ... okay on input line 8.
 
 -- Lines per column: 58 (exact).
 
-Underfull \hbox (badness 10000) in paragraph at lines 33--34
+Underfull \hbox (badness 1502) in paragraph at lines 34--35
+\OT1/ptm/m/n/10 meth-ods in-clud-ing neu-ral net-works and com-monly used
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 34--35
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 33--34
-
+Underfull \hbox (badness 1715) in paragraph at lines 34--35
+\OT1/ptm/m/n/10 One ar-ti-cle used both re-cur-rent neu-ral net-work mod-els
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 33--34
-\OT1/ptm/m/n/10 https://nlp.stanford.edu/courses/cs224n/2006/fp/sadovsky-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 33--34
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 33--34
-
+Underfull \hbox (badness 1509) in paragraph at lines 34--35
+\OT1/ptm/m/n/10 us-ing the word em-bed-ding?s, hi-er-ar-chi-cal at-ten-tion, an
+d
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 56.
+(Font)              <8> on input line 55.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 56.
+(Font)              <6> on input line 55.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 56.
+(Font)              <5> on input line 55.
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
+Missing character: There is no   in font ptmr7t!
 
-Underfull \hbox (badness 10000) in paragraph at lines 78--79
+Overfull \hbox (18.6067pt too wide) in paragraph at lines 55--79
+ [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 86--87
 
  []
 
@@ -183,19 +231,19 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 1059 strings out of 492995
- 19442 string characters out of 6132704
- 79084 words of memory out of 5000000
- 4675 multiletter control sequences out of 15000+600000
- 40844 words of font info for 75 fonts, out of 8000000 for 9000
+ 1056 strings out of 492995
+ 19398 string characters out of 6132704
+ 82084 words of memory out of 5000000
+ 4673 multiletter control sequences out of 15000+600000
+ 39160 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 26i,7n,19p,1310b,233s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 26i,7n,19p,1488b,233s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/201
 7/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2017/texmf-d
 ist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/
 type1/urw/times/utmri8a.pfb>
-Output written on project_proposal.pdf (2 pages, 51150 bytes).
+Output written on project_proposal.pdf (2 pages, 57154 bytes).
 PDF statistics:
  28 PDF objects out of 1000 (max. 8388607)
  19 compressed objects within 1 object stream

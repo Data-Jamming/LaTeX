@@ -21,7 +21,8 @@
 
 \begin{abstract}
 
-We aim to train a classifier to predict a song's genre based on its lyrics, with the goal of exploring the relationships between the lyrical content and different genres. In this domain, we will test our intuition about each genre's distinctive attributes and investigate more opaque or subtle patterns. The model will be trained and evaluated on a dataset of 380,000 song lyrics and their genres, acquired from Kaggle.com; the genres span: country, electronic, folk, hip-hop, indie, jazz, metal, pop, R/B, and rock. We will generate features describing the lyrical content with the support of existing Natural Language Processing techniques and resources, such as the Natural Language Toolkit Python library. Attributes that we are consider evaluating include: line count; syllable count; rhyme frequency; and amount of variation in rhyme scheme. Our primary goal is to produce a feature set for the song lyrics dataset along with a single classification model, on which we will iterate to increase accuracy. Our stretch goal is to develop a second model to compare to our first model, providing insight into the tradeoffs in model selection for this particular problem. The development of the second model will depend on the opportunity for insight that we perceive in our first model.
+The primary aim for our project is to create a classifier that can accurately predict a song's genre based solely on its lyrics, with the intention of exploring the relationships between the lyrical content and different genres. In this domain, we will test our intuition about each genre's distinctive attributes and investigate more opaque or subtle patterns. However, our goal is twofold: we intend to implement both a traditional linear ML classifier that uses a derived set of NLP features, and a deep learning model, in order to compare and contrast both their accuracies and sources of error. Our models will be trained and tested on a dataset of 380,000 songs and their lyrics, acquired from Kaggle.com, and originally scraped from metrolyrics.com; the genres span: country, electronic, folk, hip-hop, indie, jazz, metal, pop, R\&B, and rock. Before feeding the data to our models, will will clean it, removing songs without corresponding classifications, and ensuring lyrical notation consistency. Further processing will be done using NLP techniques and tools such as Python NLTK, to extract a set of lyrical features for analysis which may include attributes such as part-of-speech (POS) frequency, syllable count, and rhyme scheme. We hope that the results of our classifiers will illuminate the most important lyrical features with respect to genre, and provide some insight into the benefits or detriments of using deep learning for lyrical inference.
+
 
 
 \end{abstract}
@@ -30,7 +31,7 @@ We aim to train a classifier to predict a song's genre based on its lyrics, with
 
 \section{Related Work}
 
-\IEEEPARstart{W}{ho} has done something like what you plan to do?  What did they try?  How well did it work? This is an important section, so don't skimp here. Search Google Scholar to find related work. \\\\https://arxiv.org/pdf/1707.04678.pdf \\ \\ https://nlp.stanford.edu/courses/cs224n/2006/fp/sadovsky\-x1n9\-1\-224n\_final\_report.pdf \\ \\ http://worldcomp-proceedings.com/proc/p2016/DMI8052.pdf\\
+\IEEEPARstart{T}{here} exists numerous attempts at classifying songs into genres solely by their lyrical content by classification methods including neural networks and commonly used classification models such as SVM, k- nearest neighbor, etc. \\ \\One article used both recurrent neural network models and simple classifier methods to reclassify a dataset of around 500,000 song lyrics and 20 genres, similar to the dataset to be used in this study of 380,000 song lyrics and 10 genres. However, instead of just using a feature set containing syllable count, line count, word count, rhyme frequency, and rhyme scheme they also decided to use a hierarchical attention network. This relies on the model learning and using the word embedding?s, hierarchical attention, and gated recurrent units rather than hand selected features. This study resulted in a trend between the model complexity and classification accuracy, showing that as complexity increases so does the accuracy. Thus, the neural net performed much more accurately throughout their study \cite{tsaptsinos}.
 
 %-------------------------------------------------------------------------------------------------------------------
 
@@ -46,8 +47,6 @@ Data, Algorithm, Evaluation... bunch of random algorithms...
 
 %-------------------------------------------------------------------------------------------------------------------
 
-\newpage
-
 \section{Estimated Timeline}
 
 \begin{table}[h!]
@@ -57,15 +56,24 @@ Data, Algorithm, Evaluation... bunch of random algorithms...
       \textbf{Due Date} & \textbf{Activity}\\
 
       \hline
-      Feb. 6th & Project Proposal\\
-      Feb. 13th & Data Cleaning and Mining Preparation\\
-      Feb. 23th & Algorithm Environment Setup\\
-      Feb. 27th & Run the Commonly Used Algorithms and Record Results\\
-      Mar. 6th &Deep Learning Method and Record Results\\
-      Mar. 13th & Midterm Report\\
-      Mar. 20th & Gather Results and Prepare Final Report\\
-      Mar. 28th & Project Presentation\\
-      Apr. 6th & Final Report\\
+      	Feb.	6th & Project Proposal\\
+	Feb. 13th & Finish Data Cleaning and Mining Preparation\\
+	& Start Both Methods; SVM and Recurrent Neural Net\\
+      	Feb. 	23th & Progress on 'Rock or Not' (SVM) Recorded\\
+	& Progress on Recurrent Neural Net Recorded\\
+      	Feb. 	27th & Finish 'Rock or Not' Further the Analysis to 'Rock or Pop' etc.\\
+	& Progress on the Neural Net Method Recorded\\
+     	Mar. 	6th & Finish SVM and Record Results, Start Midterm Report\\
+	& All Hands On Neural Net\\
+    	Mar. 	11th & Prepare and Finalize Midterm Report\\
+	& All Hands On Neural Net\\
+      	Mar. 	13th & Midterm Report Due \\
+	& Continue Neural Net\\
+      	Mar. 	20th & Gather Results of Both Methods and Prepare Final Report\\
+      	Mar. 	25th & Meeting to Organize Presentation\\
+	& Finish Final Report\\
+      	Mar. 	28th & Project Presentation\\
+      	Apr. 	6th & Final Report Due\\
 
     \end{tabular}
   \end{center}
@@ -86,9 +94,9 @@ The team leaders are as follows:
 
       \hline
 	Anna Sollazzo & TBD\\
-	Henry Hart & TBD\\
+	Henry Hart & Data Cleaning\\
 	Jordan Jay & TBD\\
-	Juan Carlos Gallegos & TBD\\
+	Juan Carlos Gallegos & Neural Net\\
 	Robert Craig & TBD\\
 
     \end{tabular}
@@ -100,9 +108,9 @@ The team leaders are as follows:
 
 \begin{thebibliography}{1}
 
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+\bibitem{tsaptsinos}
+A.~Tsaptsinos, \emph{Lyrics-Based Music Genre Classification Using a Hierarchical Attention Network}, \relax ICME, Stanford University, USA, 2017.
+
 
 \end{thebibliography}
 
