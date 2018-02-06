@@ -21,8 +21,8 @@
 
 \begin{abstract}
 
-The primary aim for our project is to create a classifier that can accurately predict a song's genre based solely on its lyrics, with the intention of exploring the relationships between the lyrical content and different genres. In this domain, we will test our intuition about each genre's distinctive attributes and investigate more opaque or subtle patterns. However, our goal is twofold: we intend to implement both a traditional linear ML classifier that uses a derived set of NLP features, and a deep learning model, in order to compare and contrast both their accuracies and sources of error. Our models will be trained and tested on a dataset of 380,000 songs and their lyrics, acquired from Kaggle.com, and originally scraped from metrolyrics.com; the genres span: country, electronic, folk, hip-hop, indie, jazz, metal, pop, R\&B, and rock. Before feeding the data to our models, will will clean it, removing songs without corresponding classifications, and ensuring lyrical notation consistency. Further processing will be done using NLP techniques and tools such as Python NLTK, to extract a set of lyrical features for analysis which may include attributes such as part-of-speech (POS) frequency, syllable count, and rhyme scheme. We hope that the results of our classifiers will illuminate the most important lyrical features with respect to genre, and provide some insight into the benefits or detriments of using deep learning for lyrical inference.
-
+We aim to construct multiple classifiers to predict a song's genre based solely on its lyrics, with the intention of exploring the relationships between the lyrical content and different genres. In this domain, we will test our intuition about each genre's distinctive attributes and investigate more opaque or subtle patterns. We intend to implement a traditional classifier trained on a set of NLP features derived from the lyrics as well as a deep learning model; we will then compare and contrast their respective accuracies and areas of error.\par
+    Our models will be trained and tested on a dataset of 380,000 songs and their lyrics, available on Kaggle.com and originally scraped from metrolyrics.com; the genres span: country, electronic, folk, hip-hop, indie, jazz, metal, pop, R\&B, and rock. Before training, we will preprocess the data by removing songs without given genres, ensuring lyrical notation consistency, and generating NLP features to describe the data; features such as part-of-speech (POS) frequency, line/word/syllable count, and rhyme scheme will be evaluated using NLP techniques and tools such as Python NLTK \cite{NLTK}.\par
 
 
 \end{abstract}
@@ -111,6 +111,8 @@ The team leaders are as follows:
 \bibitem{tsaptsinos}
 A.~Tsaptsinos, \emph{Lyrics-Based Music Genre Classification Using a Hierarchical Attention Network}, \relax ICME, Stanford University, USA, 2017.
 
+\bibitem{NLTK}
+Bird, Steven, Edward Loper and Ewan Klein (2009), \emph{Natural Language Processing with Python}. O¿Reilly Media Inc.
 
 \end{thebibliography}
 
