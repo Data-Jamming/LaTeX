@@ -28,7 +28,10 @@
 %-------------------------------------------------------------------------------------------------------------------
 \section{Introduction}
 
-    \IEEEPARstart{O}{ur} models will be trained and tested on a dataset that contains 380,000 song lyrics and their corresponding genres, available on Kaggle.com and originally scraped from metrolyrics.com \cite{KaggleDataset}; the dataset spans 10 genres: country, electronic, folk, hip-hop, indie, jazz, metal, pop, R\&B, and rock. Before training, we will preprocess the data by cleaning it (e.g. removing the relatively few songs without given genres) and generating NLP features to describe the data; features such as part-of-speech (POS) frequency, line/word/syllable count, and rhyme scheme will be evaluated using NLP techniques and tools such as Python NLTK \cite{NLTK}.\par
+    \IEEEPARstart{O}{ur} models will be trained and tested on a dataset that contains 380,000 song lyrics and their corresponding genres, available on Kaggle.com and originally scraped from metrolyrics.com \cite{KaggleDataset}; the dataset is comprised of a song title, year, artist, genre, and lyrics and it spans 10 genres: country, electronic, folk, hip-hop, indie, jazz, metal, pop, R\&B, and rock. Before training, we will preprocess the data by cleaning it (e.g. removing the relatively few songs without given genres) and generating NLP features to describe the data; features such as part-of-speech (POS) frequency, line/word/syllable count, and rhyme scheme will be evaluated using NLP techniques and tools such as Python NLTK \cite{NLTK}.\par
+
+We intend to use 70\% of our data for training, 10\% for validation, and 20\% for testing. While the neural network will be given the raw, unstructured lyric data, the SVM will be run on a linguistic feature set derived from the lyrics. This feature set will echo the themes seen in the relevant literature, taking into count elements such as POS frequency, word count, syllable count, and rhyme scheme. Once both of our models are completed, we will evaluate their classification precision and accuracy. Furthermore, we intend to analyse the dispersal of model errors over classes to check our intuition regarding both models. We would like to understand their areas of confusion: for example, whether the models frequently misclassify a song of a particular genre as another.
+
 
 %-------------------------------------------------------------------------------------------------------------------
 
@@ -43,18 +46,88 @@ Similarly, Mayer et al. \cite{mayer} trained several classifiers on basic featur
 
 %-------------------------------------------------------------------------------------------------------------------
 
-\section{Data Description and Source}
+\section{Distribution of Tasks Among Team Members}
 
-The data used in the study was collected from an online dataset resource by the name of 'Kaggle' \cite{kaggle}. Each song in this dataset, of over 380,000 different entries, contains a song title, year, artist, genre, and the lyrics. However, the data matrix features we are considering to use will be extracted will be from the Python NLTK toolset, such as line count, word count, syllable count, rhyme frequency, rhyme scheme, and part of speech (POS) frequency. 
+Each team member is a lead in a specific area and is required to delegate tasks in their area accordingly. This will aid in equally distributing the workload and involving team members to contribute in every aspect.\\ 
+
+The team leaders are as follows:
+
+\begin{table}[h!]
+    \label{tab:table1}
+    \begin{tabular}{l|l|l|}
+      \textbf{Member} & \textbf{Task}\\
+
+      \hline
+	Anna Sollazzo & Natual language feature set/SVM\\
+	Henry Hart & Data Cleaning/SVM\\
+	Jordan Jay & TBD\\
+	Juan Carlos Gallegos & Neural Net\\
+	Robert Craig & Neural Net\\
+
+    \end{tabular}
+\end{table}
+
+\newpage
 
 %-------------------------------------------------------------------------------------------------------------------
 
-\section{Proposed project}
+\section{Estimated Timeline}
 
-\emph{Data, Algorithm, Evaluation... bunch of random algorithms...}
+\begin{table}[h!]
+  \begin{center}
+    \label{tab:table1}
+    \begin{tabular}{l|l|l|}
+      \textbf{Due Date} & \textbf{Activity}\\
 
-%-------------------------------------------------------------------------------------------------------------------\newpage\section{Estimated Timeline}\begin{table}[h!]  \begin{center}    \label{tab:table1}    \begin{tabular}{l|l|l|}      \textbf{Due Date} & \textbf{Activity}\\      \hline      	Feb.	6th & Project Proposal\\	Feb. 13th & Finish Data Cleaning and Mining Preparation\\	& Start Both Methods; SVM and Recurrent Neural Net\\      	Feb. 	23th & Progress on 'Rock or Not' (SVM) Recorded\\	& Progress on Recurrent Neural Net Recorded\\      	Feb. 	27th & Finish 'Rock or Not' \\
-	&Further the Analysis to 'Rock or Pop' etc.\\	& Progress on the Neural Net Method Recorded\\     	Mar. 	6th & Finish SVM and Record Results, Start Midterm Report\\	& All Hands On Neural Net\\    	Mar. 	11th & Prepare and Finalize Midterm Report\\	& All Hands On Neural Net\\      	Mar. 	13th & Midterm Report Due \\	& Continue Neural Net\\      	Mar. 	20th & Gather Results of Both Methods and Prepare Final Report\\      	Mar. 	25th & Meeting to Organize Presentation\\	& Finish Final Report\\      	Mar. 	28th & Project Presentation\\      	Apr. 	6th & Final Report Due\\    \end{tabular}  \end{center}\end{table}
-%-------------------------------------------------------------------------------------------------------------------\section{Distribution of Tasks Among Team Members}Each team member is assigned a position as a lead contributor in their specific area and is required to delegate tasks in that area accordingly. This will aide in equally distributing the workload and involving team members to contribute across the board.\\The team leaders are as follows:\begin{table}[h!]    \label{tab:table1}    \begin{tabular}{l|l|l|}      \textbf{Member} & \textbf{Task}\\      \hline	Anna Sollazzo & NLP Techniques\\	Jordan Jay & NLP Techniques\\	Henry Hart & Data Cleaning\\	Juan Carlos Gallegos & Neural Net\\	Robert Craig & Neural Net\\    \end{tabular}\end{table} %-------------------------------------------------------------------------------------------------------------------\newpage\begin{thebibliography}{6}\bibitem{tsaptsinos}A.~Tsaptsinos, \emph{Lyrics-Based Music Genre Classification Using a Hierarchical Attention Network}, \relax ICME, Stanford University, USA, 2017.\bibitem{NLTK}Bird, Steven, Edward Loper and Ewan Klein (2009), \emph{Natural Language Processing with Python}. \relax O'Reilly Media Inc.\bibitem{Yang}Z. Yang, D. Yang, C. Dyer, X. He, A. Smola, E. Hovy (2014), \emph{Hierarchical Attention Networks for Document Classification}.\bibitem{KaggleDataset}GyanendraMishra (2017), \emph{380,000+ Lyrics from MetroLyrics}, https://www.kaggle.com/gyani95/380000-lyrics-from-metrolyrics.\bibitem{canicatti}A.~Canicatti (2016), \emph{ "Song Genre Classification via Lyric Text Mining."} \relax Proceedings of the International Conference on Data Mining (DMIN). The Steering Committee of The World Congress in Computer Science, Computer Engineering and Applied Computing (WorldComp).\bibitem{mayer} (2008) R.~Mayer, R.~Neumayer, and A.~Rauber., \emph{" Rhyme and Style Features for Musical Genre Classification by Song Lyrics"} \relax Vortrag: International Conference on Music Information Retrieval (ISMIR) Philadeliphia, USA; 14.09. 2008-18.09. 2008; in:" Proceedings of the 9th International Conference on Music Information Retrieval",(2008), S. 337-342.\bibitem{kaggle} Kaggle~Datasets (2017), \emph{380,000+ Lyrics From MetroLyrics}, \relax https://www.kaggle.com/gyani95/380000-lyrics-from-metrolyrics\end{thebibliography}%-------------------------------------------------------------------------------------------------------------------
+      \hline
+ï¿½ï¿½ï¿½ï¿½ï¿½ 	Feb.	6th & Project Proposal\\
+	Feb. 13th & Finish Data Cleaning and Mining Preparation\\
+	& Start Both Methods; SVM and Recurrent Neural Net\\
+ ï¿½ï¿½ï¿½ï¿½ï¿½	Feb. 	23th & Progress on 'Rock or Not' (SVM) Recorded\\
+	& Progress on Recurrent Neural Net Recorded\\
+ ï¿½ï¿½ï¿½ï¿½ï¿½	Feb. 	27th & Finish 'Rock or Not' Further the Analysis to 'Rock or Pop' etc.\\
+	& Progress on the Neural Net Method Recorded\\
+ ï¿½ï¿½ï¿½ï¿½	Mar. 	6th & Finish SVM and Record Results, Start Midterm Report\\
+	& All Hands On Neural Net\\
+ ï¿½ï¿½ï¿½	Mar. 	11th & Prepare and Finalize Midterm Report\\
+	& All Hands On Neural Net\\
+ ï¿½ï¿½ï¿½ï¿½ï¿½	Mar. 	13th & Midterm Report Due \\
+	& Continue Neural Net\\
+ ï¿½ï¿½ï¿½ï¿½ï¿½	Mar. 	20th & Gather Results of Both Methods and Prepare Final Report\\
+ ï¿½ï¿½ï¿½ï¿½ï¿½	Mar. 	25th & Meeting to Organize Presentation\\
+	& Finish Final Report\\
+ ï¿½ï¿½ï¿½ï¿½ï¿½	Mar. 	28th & Project Presentation\\
+ ï¿½ï¿½ï¿½ï¿½ï¿½	Apr. 	6th & Final Report Due\\
+
+    \end{tabular}
+  \end{center}
+\end{table}
+
+%-------------------------------------------------------------------------------------------------------------------
+
+\begin{thebibliography}{6}
+
+\bibitem{tsaptsinos}
+A.~Tsaptsinos, \emph{Lyrics-Based Music Genre Classification Using a Hierarchical Attention Network}, \relax ICME, Stanford University, USA, 2017.
+
+\bibitem{NLTK}
+Bird, Steven, Edward Loper and Ewan Klein (2009), \emph{Natural Language Processing with Python}. \relax O'Reilly Media Inc.
+
+\bibitem{Yang}
+Z. Yang, D. Yang, C. Dyer, X. He, A. Smola, E. Hovy (2014), \emph{Hierarchical Attention Networks for Document Classification}.
+
+\bibitem{KaggleDataset}
+GyanendraMishra (2017), \emph{380,000+ Lyrics from MetroLyrics}, https://www.kaggle.com/gyani95/380000-lyrics-from-metrolyrics.
+
+\bibitem{canicatti}
+A.~Canicatti (2016), \emph{ "Song Genre Classification via Lyric Text Mining."} \relax Proceedings of the International Conference on Data Mining (DMIN). The Steering Committee of The World Congress in Computer Science, Computer Engineering and Applied Computing (WorldComp).
+
+\bibitem{mayer} (2008) R.~Mayer, R.~Neumayer, and A.~Rauber., \emph{" Rhyme and Style Features for Musical Genre Classification by Song Lyrics"} \relax Vortrag: International Conference on Music Information Retrieval (ISMIR) Philadeliphia, USA; 14.09. 2008-18.09. 2008; in:" Proceedings of the 9th International Conference on Music Information Retrieval",(2008), S. 337-342.
+
+\bibitem{kaggle} Kaggle~Datasets (2017), \emph{380,000+ Lyrics From MetroLyrics}, \relax https://www.kaggle.com/gyani95/380000-lyrics-from-metrolyrics
+
+\end{thebibliography}
+
+%-------------------------------------------------------------------------------------------------------------------
 
 \end{document}
