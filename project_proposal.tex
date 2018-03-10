@@ -7,35 +7,35 @@
 
 \begin{document}
 
-\title{Project Proposal:\\\emph{Music Genre Classification Based on Song Lyrics}}
+\title{Project Mid-Term Report:\\\emph{Music Genre Classification Based on Song Lyrics}}
 
 \author{Anna~Sollazzo,
         Henry~Hart,
         Jordan~Jay,
         Juan~Carlos~Gallegos,
-        And~Robert~Craig \\ January 31, 2018}
-        
+        And~Robert~Craig \\ March 9th, 2018}
+
 \maketitle
 
 %-------------------------------------------------------------------------------------------------------------------
 
 \begin{abstract}
 
-    We aim to explore the relationships between lyrical content and different music genres by constructing multiple classifiers to predict a song?s genre based solely on its lyrics. In this domain, we will test our intuition about each genre?s distinctive attributes and investigate more opaque and subtle patterns. Our training dataset contains 380 000 sets of song lyrics and their classifications. We intend to implement a traditional classifier trained on a set of Natural Language Processing (NLP) features derived from the lyrics as well as a deep learning model; we will then compare and contrast their respective accuracies and areas of error.\par
+    We aim to explore the relationships between lyrical content and different music genres by constructing multiple classifiers to predict a song's genre based solely on its lyrics. In this domain, we will test our intuition about each genre's distinctive attributes and investigate more opaque and subtle patterns. Our training dataset contains 380 000 sets of song lyrics and their classifications. We intend to implement a traditional classifier trained on a set of Natural Language (NL) features derived from the lyrics as well as a deep learning model; we will then compare and contrast their respective accuracies and areas of error.\par
 
 \end{abstract}
 
 %-------------------------------------------------------------------------------------------------------------------
 \section{Project Proposal}
 
-    \IEEEPARstart{I}{n} order to perform the music genre classification that defines the relationships between the lyrical content of songs and their respective genres, our models must be trained and tested on a large song lyric dataset. For this, we have found a dataset that contains 380,000 song lyrics from Kaggle.com that was originally scraped from metrolyrics.com and is comprised of entities that include the song title, year, artist, genre, and lyrics  \cite{KaggleDataset}. The classifications span 10 genres: country, electronic, folk, hip-hop, indie, jazz, metal, pop, R\&B, and rock. Before training, we will preprocess the data by cleaning it (e.g. removing the relatively few songs without given genres) and ensuring the consistency of lyrical notation through systematic replacement of lyrical annotation (e.g [Chorus] is replaced with the text of the chorus). After which, we will parse our cleaned dataset into a feature set containing parts of speech (POS), frequency, word count, syllable count, and rhyme scheme. This feature set is essential to training our Support Vector Machine and will be generated using NL techniques and tools such as Python Natural Language Tool Kit \cite{NLTK}. However, in order to train our neural net, it will only require the raw, unstructure lyric data therefore no parsing will be required on that. To ensure the quality and accuracy of the our final SVM and neural net models, we intend to breakdown our data into the following validation set of 70\% of our data for training, 10\% for validation, and 20\% for testing. Once both of our models are completed, we will evaluate their classification precision and accuracy. Furthermore, we intend to analyze the dispersal of model errors over classes to check our intuition regarding both models. We would like to understand their areas of confusion: for example, whether the models frequently misclassify a song of a particular genre as another. \\ \\ \par 
+    \IEEEPARstart{I}{n} order to perform the music genre classification that defines the relationships between the lyrical content of songs and their respective genres, our models must be trained and tested on a large song lyric dataset. For this, we have found a dataset that contains 380,000 song lyrics from Kaggle.com that was originally scraped from metrolyrics.com and is comprised of entities that include the song title, year, artist, genre, and lyrics  \cite{KaggleDataset}. The classifications span 10 genres: country, electronic, folk, hip-hop, indie, jazz, metal, pop, R\&B, and rock. Before training, we will preprocess the data by cleaning it (e.g. removing the relatively few songs without given genres) and ensuring the consistency of lyrical notation through systematic replacement of lyrical annotation (e.g [Chorus] is replaced with the text of the chorus). After which, we will parse our cleaned dataset into a feature set containing parts of speech (POS), frequency, word count, syllable count, and rhyme scheme. This feature set is essential to training our Support Vector Machine and will be generated using NL techniques and tools such as Python Natural Language Tool Kit \cite{NLTK}. However, in order to train our neural net, it will only require the raw, unstructure lyric data therefore no parsing will be required on that. To ensure the quality and accuracy of the our final SVM and neural net models, we intend to breakdown our data into the following validation set of 70\% of our data for training, 10\% for validation, and 20\% for testing. Once both of our models are completed, we will evaluate their classification precision and accuracy. Furthermore, we intend to analyze the dispersal of model errors over classes to check our intuition regarding both models. We would like to understand their areas of confusion: for example, whether the models frequently misclassify a song of a particular genre as another. \\ \\ \par
 
 
 %-------------------------------------------------------------------------------------------------------------------
 
 \section{Related Work}
 
-\IEEEPARstart{T}{here} exist numerous attempts at classifying songs into genres solely by their lyrical content using neural networks and more traditional models such as SVM, k-nearest neighbor, etc. 
+\IEEEPARstart{T}{here} exist numerous attempts at classifying songs into genres solely by their lyrical content using neural networks and more traditional models such as SVM, k-nearest neighbor, etc.
 Tsaptsinos \cite{tsaptsinos} extended the use of hierarchical attention networks (HAN) -- a type of recurrent neural network previously proposed and employed by Yang et al. \cite{Yang} for document classification -- to the lyrics-based music genre classification problem, demonstrating the model's ability to outperform the Long Short-Term Memory (LSTM) model when classifying across 117 genres. The HAN model performed particularly well when attention was placed at the line-level, as opposed to the segment level; that is, the model's accuracy benefited from considering lines individually instead of a block of lines (e.g. a refrain) as a whole unit. \par
 
 More traditional models such as SVM, k- nearest neighbor, and random forests have found comparable success in lyrics-based genre classification. However, these models required preprocessing of the lyrics using NLP techniques to generate lyric feature sets for training. Canicatti \cite{canicatti} used song metadata (length and beats per minute), as well as word frequency vectors derived after stop word removal and word stemming, to train four models to classify five genres. Random forests outperformed the others, with a top accuracy of 47.35 percent. \par
@@ -46,7 +46,7 @@ Similarly, Mayer et al. \cite{mayer} trained several classifiers on basic featur
 
 \section{Distribution of Tasks Among Team Members}
 
-Each team member is a lead in a specific area and is required to delegate tasks in their area accordingly. This will aid in equally distributing the workload and involving team members to contribute in every aspect.\\ 
+Each team member is a lead in a specific area and is required to delegate tasks in their area accordingly. This will aid in equally distributing the workload and involving team members to contribute in every aspect.\\
 
 The team leaders are as follows:
 
@@ -110,17 +110,17 @@ Apr. 	6th & Final Report Due\\
 
 \section{Data Cleaning Progress}
 
-Our first essential task was to clean the data to eliminate non-viable training examples and eliminate unneeded fields. After being ran through the cleaner, all elements contained only the song name, genre classification, and lyrics. Any entries with no genre available, lyrics that were too short for analysis (an arbitrary boundary of fewer than five lines), or lyrics containing non english text were also filtered out. Additionally, the cleaner used regular expressions to systematically locate lyrical notation denoting repetition (eg. (x2)) and replace it with the relevant text, which partially eliminates a source of error identified by Canicatti and Mayer et al. However, due to formatting inconsistencies, we were not able to replace the notation for a song?s chorus with the text itself, but instead use the count of these annotations in the natural language feature set for the SVM and include them in the vocabulary for the neural network.
+Our first essential task was to clean the data to eliminate non-viable training examples and eliminate unneeded fields. After being run through the cleaner, all elements contained only the song name, genre classification, and lyrics. Any entries with no genre available, lyrics that were too short for analysis (an arbitrary boundary of fewer than five lines), or lyrics containing non english text were also filtered out. Additionally, the cleaner used regular expressions to systematically locate lyrical notation denoting repetition (eg. (x2)) and replace it with the relevant text, which partially eliminates a source of error identified by Canicatti and Mayer et al. However, due to formatting inconsistencies, we were not able to replace the notation for a song?s chorus with the text itself, but instead use the count of these annotations in the natural language feature set for the SVM and include them in the vocabulary for the neural network.
 
 \section{Feature Set Progress}
 
 The other part of data pre-processing was the generation of a natural language feature set for use by the SVM. The natural language feature set generated for each song  includes: POS counts, total syllables, average number of syllables per line,word count, lyrical annotation count, and rhyme scheme. The current iteration of the SVM is not being trained on rhyme scheme as we are still working on the best way to encode it. The rhyme scheme generated is a string of letters, where matching letters denote matching sounds - we are currently deciding whether it would be feasible to train on the scheme for the entire song or whether it would be more successful to include counts of instances of patterns like 'ABBA' or 'ABAB'.
 
-Sources of error in the natural language feature set generator include: Skipping out on counting some POS that would not appear frequently or would not contribute to lyrical understanding (such as symbols). The amalgamation of POS categories; for example, all nouns , proper or not, are put in the same bucket.Rhyme scheme may not be perfect as some words do not exist in the Carnegie Mellon pronunciation dictionary that it depends on. The large number of features could create an overly complex model in the SVM.
+Sources of error in the natural language feature set generator include: Skipping out on counting some POS that would not appear frequently or would not contribute to lyrical understanding (such as symbols); the amalgamation of POS categories -for example, all nouns , proper or not, are put in the same bucket; and the absence of some words from the Carnegie Mellon pronunciation dictionary creating a rhyme scheme that may not be entirely true to the text. The large number of features could create an overly complex model in the SVM.
 
 \section{SVM Progress}
 
-Our first task in constructing a SVM, was to construct a SVM that could classify songs as Rock or not Rock. Using the SVM module available from scikit-learn, we were able to construct a SVM that was able to classify songs as Rock or not Rock with an accuracy around 80\%. However, the results of the SVM are from using only a subset of actual songs available, the first 1000. Of the 1000 songs used, 80\% were used for training the SVM and 20\% was used for later testing the model. 512 songs were classified as Rock and 488 songs were classified as not Rock. Before running each iteration of the model, features were scaled and the 1000 songs in the data matrix were shuffled. 
+Our first task in constructing a SVM, was to construct a SVM that could classify songs as Rock or not Rock. Using the SVM module available from scikit-learn, we were able to construct a SVM that was able to classify songs as Rock or not Rock with an accuracy around 80\%. However, the results of the SVM are from using only a subset of actual songs available, the first 1000. Of the 1000 songs used, 80\% were used for training the SVM and 20\% was used for later testing the model. 512 songs were classified as Rock and 488 songs were classified as not Rock. Before running each iteration of the model, features were scaled and the 1000 songs in the data matrix were shuffled.
 
 Currently the feature matrix used for training and testing is composed of 18 different features including POS, total syllables, average number of syllables per line, word count, and lyrical annotation count. However, similar to Mayer et al. [6], we plan to include rhyme scheme as part of the features that we are training the model on, once the appropriate way for encoding the rhyme schemes is determined. We anticipate that including the rhyming schemes as a feature will improve the overall accuracy of our model when our model is extended to classifying across the ten different genres presented in the original dataset.
 
@@ -143,7 +143,7 @@ The Recurrent Neural Net class is completed and designed to be malleable. (Can e
 Feature Set
 & - Include 'Rhyme Scheme' as a feature.\\
 \\
-SVM 
+SVM
 & - Train and test the model on the entire dataset including the updated \\
 & rhyme scheme feature set. \\
 & - Experiment with different subsets of the features , kernel functions and \\
