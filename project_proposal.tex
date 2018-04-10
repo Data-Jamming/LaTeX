@@ -2,18 +2,20 @@
 % SENG 474
 
 \documentclass[journal]{IEEEtran}
-
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{array}
 %-------------------------------------------------------------------------------------------------------------------
 
 \begin{document}
 
-\title{Project Mid-Term Report:\\\emph{Music Genre Classification Based on Song Lyrics}}
+\title{Final Report:\\\emph{Music Genre Classification Based on Song Lyrics}}
 
 \author{Anna~Sollazzo,
         Henry~Hart,
         Jordan~Jay,
         Juan~Carlos~Gallegos,
-        And~Robert~Craig \\ March 9th, 2018}
+        And~Robert~Craig \\ April 9th, 2018}
 
 \maketitle
 
@@ -21,151 +23,269 @@
 
 \begin{abstract}
 
-    We aim to explore the relationships between lyrical content and different music genres by constructing multiple classifiers to predict a song's genre based solely on its lyrics. In this domain, we will test our intuition about each genre's distinctive attributes and investigate more opaque and subtle patterns. Our training dataset contains 380 000 sets of song lyrics and their classifications. We intend to implement a traditional classifier trained on a set of Natural Language (NL) features derived from the lyrics as well as a deep learning model; we will then compare and contrast their respective accuracies and areas of error.\par
+    Our group aimed to explore the relationship between the lyrical content of a song and its associated music genre. Specifically, we had to construct different classification models to predict the genre of a song based solely on its lyrics. Our processes investigated the relationships between both a song's linguistic structure and its genre, as well as the lyrical content and genre. The dataset we used to train our model contained a set of 380,000 songs lyrics with their associated genre's. We implemented both a traditional classifier trained on a set of natural language (NL) features derived from the lyrics, as well as a deep learning model. After the classifiers were implemented, we then compared and contrasted their respective accuracies.\par
 
 \end{abstract}
 
 %-------------------------------------------------------------------------------------------------------------------
-\section{Project Proposal}
+\section{Introduction}
 
-    \IEEEPARstart{I}{n} order to perform the music genre classification that defines the relationships between the lyrical content of songs and their respective genres, our models must be trained and tested on a large song lyric dataset. For this, we have found a dataset that contains 380,000 song lyrics from Kaggle.com that was originally scraped from metrolyrics.com and is comprised of entities that include the song title, year, artist, genre, and lyrics  \cite{KaggleDataset}. The classifications span 10 genres: country, electronic, folk, hip-hop, indie, jazz, metal, pop, R\&B, and rock. Before training, we will preprocess the data by cleaning it (e.g. removing the relatively few songs without given genres) and ensuring the consistency of lyrical notation through systematic replacement of lyrical annotation (e.g [Chorus] is replaced with the text of the chorus). After which, we will parse our cleaned dataset into a feature set containing parts of speech (POS), frequency, word count, syllable count, and rhyme scheme. This feature set is essential to training our Support Vector Machine and will be generated using NL techniques and tools such as Python Natural Language Tool Kit \cite{NLTK}. However, in order to train our neural net, it will only require the raw, unstructure lyric data therefore no parsing will be required on that. To ensure the quality and accuracy of the our final SVM and neural net models, we intend to breakdown our data into the following validation set of 70\% of our data for training, 10\% for validation, and 20\% for testing. Once both of our models are completed, we will evaluate their classification precision and accuracy. Furthermore, we intend to analyze the dispersal of model errors over classes to check our intuition regarding both models. We would like to understand their areas of confusion: for example, whether the models frequently misclassify a song of a particular genre as another. \\ \\ \par
+\IEEEPARstart{T}{H}{E} ability to correctly identify the genre of a particular song is crucial to allowing audiences to find related songs and is an important component to spreading music to masses of people. For example, without accurate genre classification, radio stations would not be able to specialize in the material they broadcast, and musicians may have difficulty producing consistent work. Having accurate and consistent genre classification alleviates some of these problems so musicians, marketers, and radio stations can produce coherent work and connect with people interested in their work. 
+\par In order to perform the music genre classification that defines the relationships between the lyrical content of songs and their respective genres, our models had to be trained and tested on a large song lyric dataset. For this, we found a dataset that contained 380,000 song lyrics from Kaggle.com that was originally scraped from metrolyrics.com and is comprised of entities that include the song title, year, artist, genre, and lyrics \cite{KaggleDataset}. The classifications spanned ten genres: Country, Electronic, Folk, Hip-Hop, Indie, Jazz, Metal, Pop, R\&B, and Rock. Before training our models on this data, we preprocessed the entire dataset by cleaning it (e.g. removing the relatively few songs without given genres) and ensuring the consistency of lyrical notation through systematic replacement of lyrical annotation (e.g [Chorus] is replaced with the text of the chorus). After which, we parsed our cleaned dataset into a feature set containing parts of speech (POS), frequency, word count, syllable count, and rhyme scheme. This feature set was essential to training our Support Vector Machine and was generated using NL techniques and tools such as Python Natural Language Tool Kit \cite{NLTK}. However, to train our neural net we only required raw and unstructured lyric data therefore no parsing was required for it. To ensure the quality and accuracy of the our final SVM and neural net models, we had to breakdown our data into the following test set of 80\% of our data for training, and 20\% for testing. Once both of our models were completed, we evaluated their classification precision and accuracy. Furthermore, we analyzed the dispersal of model errors over classes to check our intuition regarding both models to understand their areas of confusion. For example, whether the models frequently misclassify a song of a particular genre as another. \par
+
 
 
 %-------------------------------------------------------------------------------------------------------------------
 
 \section{Related Work}
 
-\IEEEPARstart{T}{here} exist numerous attempts at classifying songs into genres solely by their lyrical content using neural networks and more traditional models such as SVM, k-nearest neighbor, etc.
+There existed numerous attempts at classifying songs into genres solely by their lyrical content using neural networks and more traditional models such as SVM, k-nearest neighbor, etc.
 Tsaptsinos \cite{tsaptsinos} extended the use of hierarchical attention networks (HAN) -- a type of recurrent neural network previously proposed and employed by Yang et al. \cite{Yang} for document classification -- to the lyrics-based music genre classification problem, demonstrating the model's ability to outperform the Long Short-Term Memory (LSTM) model when classifying across 117 genres. The HAN model performed particularly well when attention was placed at the line-level, as opposed to the segment level; that is, the model's accuracy benefited from considering lines individually instead of a block of lines (e.g. a refrain) as a whole unit. \par
 
 More traditional models such as SVM, k- nearest neighbor, and random forests have found comparable success in lyrics-based genre classification. However, these models required preprocessing of the lyrics using NLP techniques to generate lyric feature sets for training. Canicatti \cite{canicatti} used song metadata (length and beats per minute), as well as word frequency vectors derived after stop word removal and word stemming, to train four models to classify five genres. Random forests outperformed the others, with a top accuracy of 47.35 percent. \par
 
-Similarly, Mayer et al. \cite{mayer} trained several classifiers on basic features (e.g word count, line count) as well as more complex statistics such as POS tag frequency, occurrences of simple rhyme schemes (e.g. AABB, ABAB, ABBA and AA), and the proportion of unique terms used in rhyming. Their SVM that was trained on word count, line count, POS data, and rhyme data performed best, with an accuracy of 33.47 percent over ten genres. The team concluded that, in all cases, the inclusion of derived features in training data outperformed the traditional bag of words approach. Notably, both Canicatti and Mayer et al. suggested that a portion of their error may have come from their choice to remove lyrical annotation denoting repetition (e.g. "[chorus]" or "(x2)" ) instead of expanding them with the appriopriate sections (e.g. lyrics of chorus). \\ \\ \\ \\ \\  \par
+Similarly, Mayer et al. \cite{mayer} trained several classifiers on basic features (e.g word count, line count) as well as more complex statistics such as POS tag frequency, occurrences of simple rhyme schemes (e.g. AABB, ABAB, ABBA and AA), and the proportion of unique terms used in rhyming. Their SVM that was trained on word count, line count, POS data, and rhyme data performed best, with an accuracy of 33.47 percent over ten genres. The team concluded that, in all cases, the inclusion of derived features in training data outperformed the traditional bag of words approach. Notably, both Canicatti and Mayer et al. suggested that a portion of their error may have come from their choice to remove lyrical annotation denoting repetition (e.g. "[chorus]" or "(x2)" ) instead of expanding them with the appropriate sections (e.g. lyrics of chorus). \par
+
+%-------------------------------------------------------------------------------------------------------------------
+\section{Project Implementation}
+The following subsections detail the implementation of the four major project components. 
+
+\subsection{Data Cleaning}
+
+Our first essential task was to clean the data in order to eliminate non-viable training examples and unnecessary fields. After being run through the cleaner, all elements contained only the song name, genre classification, and lyrics. Any entry with a 'non-available' genre, lyrics that were too short for analysis (an arbitrary boundary of fewer than five lines), non english text, or nonsensical text (eg. all punctuation) were also removed. Additionally, the cleaner used regular expressions to systematically locate lyrical notation denoting repetition, i.e. (x2), and replaced it with the relevant text. This partially eliminated a source of error that was identified by Canicatti and Mayer et al. However, due to formatting inconsistencies we were not able to replace the notation for a song's chorus with the text itself. Instead, we used the count of these annotations in the NL feature set for the SVM and included them in the vocabulary for the neural network. Upon successfully cleaning the dataset it was reduced from 380,000 to 175,000 song entries.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=9cm]{Figure_1}
+\caption{Distribution of genre's across the dataset.}
+\end{figure}
+
+\subsection{NL Feature Set Generation}
+
+Among the data preprocessing, the generation of a NL feature set for use by the SVM was also required. The NL feature set generated for each song has 22 features which were extracted using Python NLTK (See Table I). These features fall broadly into three categories: text aggregations, part of speech (POS) counts, and rhyme scheme analysis. The text aggregations included features such as average number of syllables per line and word count, while aimed to help the model learn the general shape of the lyrics. The POS counts recorded the semantic breakdown of the lyrics, though infrequently used POS were not included in the feature set. While the categorizations provided by NLTK are extremely fine grained, in an effort not to overwhelm our model with features we chose to bucket them into broader categories. For example, comparative adjectives and superlative adjectives were both classed as simply adjectives which may have resulted in some loss of accuracy. Finally, we used the Carnegie Mellon pronunciation dictionary to perform rhyme scheme analysis. Due to the differences between the vocabularies of our lyrics and dictionary we were unable to access the phonetic breakdown of certain words. However, in general we were able to generate a rhyme scheme string for each set of lyrics and were encoded using letters. We contemplated using these raw encodings but observed that the model might not recognize the similarity between songs without identical rhyme schemes. Therefore, we opted instead to include counts of three common rhyme scheme sequences - AA, ABBA, ABAB, in the feature set.
+
+\begin{table}[h!]
+    \label{tab:table1}
+    \centering
+    \caption{Complete Feature Set}
+    \begin{tabular}{ll}
+       & \\
+      \hline
+      
+	1. Annotation Count & 12. Adjective Count \\
+	2. Syllables Per Line & 13. Verb Count \\
+	3. Total Syllable Count & 14. Noun Count \\
+	4. Pre-Determiner Count& 15. Preposition Count \\
+	5. Determiner Count & 16. Pronoun Count \\
+	6. Possessive Ending Count & 17. Conjunction Count\\
+	7. Cardinal Digit Count & 18. Adverb Count\\
+	8. Particle Count & 19. Existential There Count \\
+	9. Interjection Count & 20. AA Rhyme Scheme Count \\
+	10. Modal Count (i.e. Could, Will)  & 21. ABAB Rhyme Scheme Count \\
+	11. Most Frequent Word Count & 22. ABBA Rhyme Scheme Count
+	
+    \end{tabular}
+\end{table}
+
+\subsection{SVM}
+
+After cleaning our lyrics and extracting the necessary NL features to be used as a feature set for training our models, we used the SVM classifier available from Scikit-Learn. We experimented with some of the hyperparameters that were available within the Scikit-Learn library, in particular the different kernel functions and slack coefficients to find the optimal parameters for training our models.
+
+For training and testing our models, we used a 80\% train and 20\% test split, and ran the model with the Linear, Poly, Sigmoid, and RBF kernel functions. For each kernel function, we tried slack variable coefficients 1, 50, and 100. The early results showed that Sigmoid performed consistently worse in terms of accuracy than the other functions therefore, due to time and computational constraints, we stopped training it early on in the process.
+
+	In total, we trained SVMs on three different datasets. The first, separated the dataset into either being Rock or not Rock, before training our models. The second, performed multi-class classification on our entire dataset. Finally, our third dataset, was a stratified dataset that contained an equal distribution of each of the ten genres.
+	
+	Our initial goal for creating the Rock or not Rock SVM was to test the features that we had extracted from the dataset before transferring those same features to multi-class classification. The model that we trained had an accuracy of 65\% on the features that we extracted from the lyrical data, in comparison a random classifier that always chose not Rock had an accuracy of 53\%. We then used those same features on both the non-stratified and stratified datasets to both determine how the overabundance of Rock songs found in the dataset influenced the models that we trained, and how well each of our models performed on the ten genres. Furthermore, the model trained on the stratified dataset could then be compared with results found in related works along with our Recurrent Neural Network.  
+
+\subsection{RNN}
+
+The Recurrent Neural Network (RNN) is designed to work with ordered sequential data and is proven to perform well in natural language processing problems, making it a natural choice for analyzing song lyrics. Unlike our SVM, our RNN did not train on NL features: it was tasked with learning the features on its own, solely based on the given word identities. Each word was encoded as a one-hot vector, with length roughly equal to the size of the vocabulary across all songs (See Figure 2). In an effort to reduce the input size and thus speeding up training, we created a single one-hot vector to represent all words that appeared in less than five different songs.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6cm]{Figure_7}
+\caption{Encoded one-hot vectors.}
+\end{figure}
+
+Ideally, we would have liked to have made several different flavours of neural networks, but due to the time constraints we could only feasibly make one. From the different kinds of recurrent neural networks (e.g. RNN, LSTM, CRNN, HAT, etc.), we chose a regular RNN for its simplicity and proven effectiveness, as reported by the related works discussed earlier.
+
+The RNN, implemented using pytorch nn.Linear layers, was designed to take one hot encoded words generated from the training set, as described above. The RNN consisted of 1 layer and 1 hidden state; the layer consisted of 256 neurons and the hiddens state had size 80, eight for each of the ten classes.
+
+We also made the decision to train the RNN on the stratified data, instead of the normal data,  since it was going to be learning its own features from the data it would have designed them based on the more frequently occurring genres and may have struggled to classify the less frequently occurring ones or else it might have taken much longer to develop features for them. 
+ 
+\newpage
+
+\section{Results}
+
+The following subsections detail the results from our SVM and RNN.
+
+\subsection{SVM Results}
+
+We experimented with training our model using poly, linear, and rbf kernel functions, each with slack variable coefficients 1, 50, and 100. Of the combinations of the  kernel functions and slack variable coefficients, rbf with a coefficient of 50 performed the best, with an accuracy of 55.08\% (See Table ll). It should be noted, however, that due to the genre distribution of the date set a random classifier that always picked Rock would have resulted in an accuracy of 47.1\% (See Figure 1). Most of the accuracy from our SVM run on the entire dataset came from predicting Rock , Hip-Hop, and Metal (See Table lll).
+
+\begin{table}[h!]
+    \label{tab:table2}
+    \caption{Non-Stratified Results of Kernel Functions and Slack Variables}
+    \begin{tabular}{l|l|l|ll}
+      \textbf{Slack Variable} & \textbf{Linear} & \textbf{Poly} & \textbf{RBF}\\
+
+      \hline
+      \\
+	1 & 53.05\% & 51.70\% & 55.03\%\\
+	50 & 53.54\% & 53.33\% & \textbf{55.08\%}\\
+	100 & 53.27\% & 53.00\% & 55.07\%\\
+
+    \end{tabular}
+\end{table}
+
+
+\begin{table}[h!]
+    \label{tab:table1}
+    \caption{Non-Stratified Genre Accuracies}
+    \begin{tabular}{|m{0.4cm}|m{0.4cm}|m{0.5cm}|m{0.45cm}|m{0.4cm}|m{0.4cm}|m{0.45cm}|m{0.4cm}|m{0.4cm}|m{0.4cm}}
+    \textbf{Rock} & \textbf{H.H} & \textbf{Metal} & \textbf{Pop} & \textbf{Elec.} & \textbf{R\&B} & \textbf{Jazz} & \textbf{Indie} & \textbf{Folk} & \textbf{Country}\\
+      \hline
+      \\
+	94\% & 67\% & 17\& & 13\% & 4\% & 2\% & 1\% & 0.8\% & 0.3\% & 0.2\%\\
+
+    \end{tabular}
+\end{table}
+
+When testing our trained SVMs on the stratified dataset, we found fairly similar accuracies across each of the kernel functions, with an accuracy range of 27-29\% and an overall best accuracy with the Poly kernel function of 29.6\%. A random classifier run on the stratified data would have given an accuracy of 10\% (See Table IV). When examining the accuracy of our best model on each of the genres individually, we found a better distribution of accuracies across the ten genres, with a maximum accuracy for Rock of 64\%  and a minimum accuracy of 5\% for Hip-Hop and Country (See Table V).
+
+\begin{table}[h!]
+    \label{tab:table1}
+    \caption{Stratified Results of Kernel Functions and Slack Variables}
+    \begin{tabular}{l|l|l|ll}
+      \textbf{Slack Variable} & \textbf{Linear} & \textbf{Poly} & \textbf{RBF}\\
+
+      \hline
+      \\
+	1 & 28.05.05\% & 17.90\% & 28.90\%\\
+	50 & 28.60\% & \textbf{29.60\%} & 29.00\%\\
+	100 & 28.70\% & 27.50\% & 29.10\%\\
+
+    \end{tabular}
+\end{table}
+
+\begin{table}[h!]
+    \label{tab:table1}
+    \caption{Stratified Genre Accuracies}
+    \begin{tabular}{|m{0.4cm}|m{0.5cm}|m{0.4cm}|m{0.45cm}|m{0.4cm}|m{0.4cm}|m{0.45cm}|m{0.4cm}|m{0.45cm}|m{0.4cm}}
+    \textbf{H.H} & \textbf{Metal} & \textbf{Jazz} & \textbf{Rock} & \textbf{Elec.} & \textbf{Folk} & \textbf{Indie} & \textbf{Pop} & \textbf{R\&B} & \textbf{Country}\\
+      \hline
+      \\
+	64\% & 37\% & 35\& & 30\% & 19\% & 18\% & 14\% & 14\% & 13\% & 5\%\\
+
+    \end{tabular}
+\end{table}
+
+Hence, even though our models trained and tested on the non-stratified dataset achieved a better accuracy, 55\% compared to 29\% of the stratified dataset, when comparing the accuracies of each of the different genres, the models trained on the stratified datasets performed better than the models trained on the cleaned dataset. The stratified trained SVM achieved an average accuracy of 25\% across the ten genres whereas the non-stratified SVM scored an average accuracy of 20\%. When examining the misclassifications that were being made by our stratified trained SVMs, for almost all of the genres, they were most likely to be misclassified as Country the most, however, after Country the next most genre that it misclassified a particular genre as varied across the remaining 8 genres (See Figures 3 and 4). In comparison, the misclassifications that were being made by our SVMs trained on the cleaned dataset, were almost always Rock, Hip-Hop, Pop, which represents the three most common genres found in our dataset (See Figures 5 and 6).
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=9cm]{Figure_5}
+\caption{Total 'Hip-Hop' Prediction Results for Stratified Trained SVM}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=9cm]{Figure_6}
+\caption{Total 'Metal' Prediction Results for Stratified Trained SVM}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=9cm]{Figure_2}
+\caption{Total 'Hip-Hop' Prediction Results for Non-Stratified Trained SVM}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=9cm]{Figure_3}
+\caption{Total 'Metal' Prediction Results for Non-Stratified Trained SVM}
+\end{figure}
+
+%-------------------------------------------------------------------------------------------------------------------
+\newpage
+\subsection{RNN Results}
+
+Our RNN's 10-way classification accuracy on stratified training data peaked at around 15-16\%, falling short of our SVM's highest accuracies of around 27-29\% (See Table VI). While the RNN underperformed in comparison to the SVM, it proved superior to a random uniform classifier, which would have achieved an accuracy of 10\%. The RNN was clearly able to detect some patterns in the lyrics within genres.
+
+\begin{table}[h!]
+    \label{tab:table1}
+    \caption{RNN Genre Accuracies}
+    \begin{tabular}{|m{0.4cm}|m{0.5cm}|m{0.4cm}|m{0.8cm}|m{0.4cm}|m{0.4cm}|m{0.45cm}|m{0.45cm}|m{0.4cm}|m{0.4cm}}
+    \textbf{Jazz} & \textbf{Metal} & \textbf{Elec.} & \textbf{Country} & \textbf{H.H} & \textbf{Indie} & \textbf{Rock} & \textbf{R\&B} & \textbf{Folk} & \textbf{Pop}\\
+      \hline
+      \\
+	41\% & 38\% & 36\%& 33\% & 30\% & 14\% & 13\% & 10\% & 0.8\% & 0\%\\
+
+    \end{tabular}
+\end{table}
+
+We suspect that the RNN's ample error rate is largely due to its architecture. The single layer and single hidden state proved insufficient for the RNN to learn lyrical features from word identity alone. Based on the results reported by related works, we believe that a notably higher accuracy would be attainable solely by adding layers and hidden states. However, extending the RNN in this way would increase training time significantly; we forwent these editions due to project time constraints.
+
+Notably, the RNN and SVM achieved different accuracies within each genre: the SVM was significantly more accurate in classifying Hip-Hop lyrics, while the RNN was far more accurate in classifying Country lyrics. However, they both achieved very similar accuracies for Jazz and Metal.
+
+%-------------------------------------------------------------------------------------------------------------------
+\section{Discussion of Results}
+
+\subsection{SVM}
+
+Even though our SVM trained on the entire cleaned dataset achieved a better overall accuracy than our SVM trained on the stratified dataset, it is likely that our models trained on the stratified dataset are more generalizable than the model created on the largely Rock dataset. For example, if our testing set for our non-stratified trained SVM did not contain such a large proportion of Rock, it is likely that it would not have performed as well as it did, and if given the testing set that was used for the stratified dataset, it is likely that it would have done worse than the models trained with the stratified dataset.
+
+Furthermore, training our SVM on stratified data allowed us to more closely compare it to the SVMs in the related works, since they also trained on stratified data. In particular, we can more accurately compare the results of training on our hand-crafted feature set with the corresponding results in the related works. After comparing our results with the genre SVMs found in related works, although we achieved a lower accuracy across the ten genres, we believe the inclusion of song metadata, such as song length, beats per minute, words per minute, etc. would be beneficial in classifying the ten available genres. Overall, we believe that our SVM was successful because of the NL features that were used in training our models. Based on our prior belief about distinguishing NL features that are found in each genre, we expected the features that we chose to be a suitable subset of the features that could potentially be extracted from purely lyrical data.
+
+\subsection{RNN}
+
+We suspect that the RNN's ample error rate is largely due to its architecture. The single layer and single hidden state proved insufficient for the RNN to learn lyrical features from word identity alone. Based on the results reported by related works, we believe that a notably higher accuracy would be attainable solely by adding layers and hidden states. However, extending the RNN in this way would increase training time significantly; we forwent these editions due to project time constraints.
+
+There were a few occasions during the training of the RNN where the sign changed on the output value, and since it was using tanh activation and dealing with entirely negative outputs until then it caused it to push back the weights of that genre until it flipped the sign again, so anything about that genre that it had learned might have been lost. This might not have been an issue had relu or another activation function been used instead, or at least had the last layer been rectified. 
+
+
+%-------------------------------------------------------------------------------------------------------------------
+\section{Future Work}
+
+In order to ameliorate our current supervised classifier, we would like to run the model on different subsets of the natural language features in order to find the optimal set. The SVM feature set we used focused solely on semantic elements, ignoring word identity. It would be interesting to see if accuracy would improve were word identity, perhaps using a bag of words style feature encoding, included in the SVM feature space.
+
+Additional testing could have been performed on our stratified dataset, as due to time constraints we had to limit the number of samples from each of the different genres that were used to train our models. In particular, we were only able to train and test our SVMs with a dataset of 10,000 songs, 1,000 from each genre, however the computational time required for training our models would have been infeasible with the time constraints of the course and the computational resources that we had available. In addition, further tuning of hyper-parameters could have been performed instead of just the three set slack coefficients that we experimented with.
+
+Similar to how we examined the misclassifications that were being made between our stratified and non-stratified trained SVMs, we would have also liked to compare the misclassifications between the stratified SVM and the Recurrent Neural Network. In doing so, we would be able to examine which genres were classifiable by word identity vs. the genres that are classifiable via semantic elements.
+
+With more time available to work on neural net models, we would have like to enable CUDA libraries through pytorch so that we would be able to tweak the hyper parameters of the RNN more quickly and effectively. In addition to have tried other forms of recurrent neural nets, and perhaps try adding some of the features extracted for the SVM as part of the input data for the net. 
+
+Based on our results, we expect that the categories of genres can be classified by both word identity and semantic elements, however, we would have still liked to further analyze which specific genres benefitted from the word identity and which benefited from the semantic elements.
+
+%-------------------------------------------------------------------------------------------------------------------
+\section{Ethical Implications}
+
+Theoretically, our models are learning the platonic ideal of a song in any given genre. Reverse engineering them, especially the neural network which focused on the content rather than the structure of the lyrics, could potentially generate a song with severe biases. For example, a Hip-Hop song generated by our RNN would have a high chance of containing strong language and racial slurs due to such words appearing frequently in the genre, however all the context of who is using those words and how they're directed is mostly, if not completely, lost with our model and so it's very likely that it could create lyrics that are offensive. 'prototypic' Hip-Hop song might necessarily contain racial slurs, according to our model, but this is not true in reality.
+
+It is also must be noted that our model is biased towards the North American perception of genre  -- as the data was all in English and drawn from North American sources -- which is not necessarily universal.
 
 %-------------------------------------------------------------------------------------------------------------------
 
 \section{Distribution of Tasks Among Team Members}
 
-Each team member is a lead in a specific area and is required to delegate tasks in their area accordingly. This will aid in equally distributing the workload and involving team members to contribute in every aspect.\\
-
-The team leaders are as follows:
+Each team member contributed to a specific area outlined below:
 
 \begin{table}[h!]
     \label{tab:table1}
     \begin{tabular}{l|l|l|}
-      \textbf{Member} & \textbf{Completed Tasks}\\
+      \textbf{Tasks} & \textbf{Member(s)}\\
 
       \hline
-	Anna Sollazzo & Data Cleaning/Feature Set\\
-	Henry Hart & Midterm Report\\
-	Jordan Jay & Data Preprocessing/SVM\\
-	Juan Carlos Gallegos & Neural Net\\
-	Robert Craig & Neural Net\\
+	Data Cleaning & Anna Sollazzo, Jordan Jay\\
+	NL Feature Generation & Anna Sollazzo, Jordan Jay\\
+	SVM & Anna Sollazzo, Henry Hart, Jordan Jay\\
+	Neural Net & Juan Carlos Gallegos, Robert Craig\\
+	Report Formatting/Latex & Henry Hart\\
+	Presentation Slides & All\\
 
     \end{tabular}
 \end{table}
-
-\begin{table}[h!]
-    \label{tab:table1}
-    \begin{tabular}{l|l|l|}
-      \textbf{Member} & \textbf{Future Tasks}\\
-
-      \hline
-	Anna Sollazzo & Feature Set/SVM\\
-	Henry Hart & Presentation Prep/SVM\\
-	Jordan Jay & Feature Set/SVM\\
-	Juan Carlos Gallegos & Neural Net\\
-	Robert Craig & Neural Net\\
-	All & Final Report
-
-    \end{tabular}
-\end{table}
-
-%-------------------------------------------------------------------------------------------------------------------
-
-\section{Estimated Timeline}
-
-\begin{table}[h!]
-  \begin{center}
-    \label{tab:table1}
-    \begin{tabular}{l|l|l|}
-      \textbf{Due Date} & \textbf{Activity}\\
-
-      \hline
-
-Mar. 19th & Further the SVM classification to 'Rock or Pop' etc.\\
-Mar. 	23rd & SVM is Completed and Record Results \\
-Mar. 	25th & Neural is Completed and Record Results \\
-Mar. 	26th & Gather Results of Both Methods \\
-		&Prepare Final Presentation \\
-		& Start Preparing Final Report \\
-Mar. 	28th & Project Presentation\\
-Apr. 	6th & Final Report Due\\
-
-    \end{tabular}
-  \end{center}
-\end{table}
-
-%-------------------------------------------------------------------------------------------------------------------
-
-\section{Data Cleaning Progress}
-
-Our first essential task was to clean the data to eliminate non-viable training examples and eliminate unneeded fields. After being run through the cleaner, all elements contained only the song name, genre classification, and lyrics. Any entries with no genre available, lyrics that were too short for analysis (an arbitrary boundary of fewer than five lines), or lyrics containing non english text were also filtered out. Additionally, the cleaner used regular expressions to systematically locate lyrical notation denoting repetition (eg. (x2)) and replace it with the relevant text, which partially eliminates a source of error identified by Canicatti and Mayer et al. However, due to formatting inconsistencies, we were not able to replace the notation for a song?s chorus with the text itself, but instead use the count of these annotations in the natural language feature set for the SVM and include them in the vocabulary for the neural network.
-
-\section{Feature Set Progress}
-
-The other part of data pre-processing was the generation of a natural language feature set for use by the SVM. The natural language feature set generated for each song  includes: POS counts, total syllables, average number of syllables per line,word count, lyrical annotation count, and rhyme scheme. The current iteration of the SVM is not being trained on rhyme scheme as we are still working on the best way to encode it. The rhyme scheme generated is a string of letters, where matching letters denote matching sounds - we are currently deciding whether it would be feasible to train on the scheme for the entire song or whether it would be more successful to include counts of instances of patterns like 'ABBA' or 'ABAB'.
-
-Sources of error in the natural language feature set generator include: Skipping out on counting some POS that would not appear frequently or would not contribute to lyrical understanding (such as symbols); the amalgamation of POS categories -for example, all nouns , proper or not, are put in the same bucket; and the absence of some words from the Carnegie Mellon pronunciation dictionary creating a rhyme scheme that may not be entirely true to the text. The large number of features could create an overly complex model in the SVM.
-
-\section{SVM Progress}
-
-Our first task in constructing a SVM, was to construct a SVM that could classify songs as Rock or not Rock. Using the SVM module available from scikit-learn, we were able to construct a SVM that was able to classify songs as Rock or not Rock with an accuracy around 80\%. However, the results of the SVM are from using only a subset of actual songs available, the first 1000. Of the 1000 songs used, 80\% were used for training the SVM and 20\% was used for later testing the model. 512 songs were classified as Rock and 488 songs were classified as not Rock. Before running each iteration of the model, features were scaled and the 1000 songs in the data matrix were shuffled.
-
-Currently the feature matrix used for training and testing is composed of 18 different features including POS, total syllables, average number of syllables per line, word count, and lyrical annotation count. However, similar to Mayer et al. [6], we plan to include rhyme scheme as part of the features that we are training the model on, once the appropriate way for encoding the rhyme schemes is determined. We anticipate that including the rhyming schemes as a feature will improve the overall accuracy of our model when our model is extended to classifying across the ten different genres presented in the original dataset.
-
-\section{Neural Net Progress}
-
-The Recurrent Neural Net class is completed and designed to be malleable. (Can easily change size and number of layers). Furthermore, the one hot encoder takes our dataset, builds a dictionary that takes words from the data set, and gives the index for the one hot encoding. The training of the neural net is progressing well, however it still requires some issues to be dealt with.
-\\ \\ \\ \\ \\ \\
-%-------------------------------------------------------------------------------------------------------------------
-
-\section{Required Work To Be Completed}
-
-\begin{table}[h!]
-  \begin{center}
-    \label{tab:table1}
-    \begin{tabular}{l|l|l|}
-      \textbf{Task} & \textbf{Progress}\\
-
-      \hline
-\\
-Feature Set
-& - Include 'Rhyme Scheme' as a feature.\\
-\\
-SVM
-& - Train and test the model on the entire dataset including the updated \\
-& rhyme scheme feature set. \\
-& - Experiment with different subsets of the features , kernel functions and \\
-& different values for the slack variable coefficient.\\
-& - Extend binary classification to multiple classification. \\
-\\
-Neural Net
-& - Iron out issues with training and set up a trainer to validate and test. \\
-& - Explore options to find ideal parameters. \\
-& - Save prospective models and integrate the neural net and \\
-&  trainer for analysis. \\
-Final Report \\
-Presentation & - Start preparing presentation script and supporting documents. \\
-& - Analyze models while comparing and contrasting model results.
-
-
-    \end{tabular}
-  \end{center}
-\end{table}
-
-
-%-------------------------------------------------------------------------------------------------------------------
 
 \begin{thebibliography}{6}
 
@@ -193,3 +313,5 @@ A.~Canicatti (2016), \emph{ "Song Genre Classification via Lyric Text Mining."} 
 %-------------------------------------------------------------------------------------------------------------------
 
 \end{document}
+
+
