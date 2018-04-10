@@ -23,7 +23,7 @@
 
 \begin{abstract}
 
-    Our group aimed to explore the relationship between the lyrical content of a song and its associated music genre. Specifically, we had to construct different classification models to predict the genre of a song based solely on its lyrics. Our processes investigated the relationships between both a song's linguistic structure and its genre, as well as the lyrical content and genre. The dataset we used to train our model contained a set of 380,000 songs lyrics with their associated genre's. We implemented both a traditional classifier trained on a set of natural language (NL) features derived from the lyrics, as well as a deep learning model. After the classifiers were implemented, we then compared and contrasted their respective accuracies.\par
+Our group aimed to explore the relationship between the lyrical content of a song and its associated music genre. Specifically, we had to construct different classification models to predict the genre of a song based solely on its lyrics. Our processes investigated the relationships between both a song's linguistic structure and its genre, as well as the lyrical content and genre. The dataset we used to train our model contained a set of 380,000 song lyrics with their associated genres. We implemented both a traditional classifier trained on a set of natural language (NL) features derived from the lyrics, as well as a deep learning model. After the classifiers were implemented, we then compared and contrasted their respective accuracies.\par
 
 \end{abstract}
 
@@ -39,7 +39,7 @@
 
 \section{Related Work}
 
-There existed numerous attempts at classifying songs into genres solely by their lyrical content using neural networks and more traditional models such as SVM, k-nearest neighbor, etc.
+There exists numerous attempts at classifying songs into genres solely by their lyrical content using neural networks and more traditional models such as SVM, k-nearest neighbor, etc.
 Tsaptsinos \cite{tsaptsinos} extended the use of hierarchical attention networks (HAN) -- a type of recurrent neural network previously proposed and employed by Yang et al. \cite{Yang} for document classification -- to the lyrics-based music genre classification problem, demonstrating the model's ability to outperform the Long Short-Term Memory (LSTM) model when classifying across 117 genres. The HAN model performed particularly well when attention was placed at the line-level, as opposed to the segment level; that is, the model's accuracy benefited from considering lines individually instead of a block of lines (e.g. a refrain) as a whole unit. \par
 
 More traditional models such as SVM, k- nearest neighbor, and random forests have found comparable success in lyrics-based genre classification. However, these models required preprocessing of the lyrics using NLP techniques to generate lyric feature sets for training. Canicatti \cite{canicatti} used song metadata (length and beats per minute), as well as word frequency vectors derived after stop word removal and word stemming, to train four models to classify five genres. Random forests outperformed the others, with a top accuracy of 47.35 percent. \par
@@ -52,7 +52,7 @@ The following subsections detail the implementation of the four major project co
 
 \subsection{Data Cleaning}
 
-Our first essential task was to clean the data in order to eliminate non-viable training examples and unnecessary fields. After being run through the cleaner, all elements contained only the song name, genre classification, and lyrics. Any entry with a 'non-available' genre, lyrics that were too short for analysis (an arbitrary boundary of fewer than five lines), non english text, or nonsensical text (eg. all punctuation) were also removed. Additionally, the cleaner used regular expressions to systematically locate lyrical notation denoting repetition, i.e. (x2), and replaced it with the relevant text. This partially eliminated a source of error that was identified by Canicatti and Mayer et al. However, due to formatting inconsistencies we were not able to replace the notation for a song's chorus with the text itself. Instead, we used the count of these annotations in the NL feature set for the SVM and included them in the vocabulary for the neural network. Upon successfully cleaning the dataset it was reduced from 380,000 to 175,000 song entries.
+Our first essential task was to clean the data in order to eliminate non-viable training examples and unnecessary fields. After being run through the cleaner, all elements contained only the song name, genre classification, and lyrics. Any entry with a 'non-available' genre, lyrics that were too short for analysis (an arbitrary boundary of fewer than five lines), contained non english text, or nonsensical text (eg. all punctuation) was also removed. Additionally, the cleaner used regular expressions to systematically locate lyrical notation denoting repetition, i.e. (x2), and replaced it with the relevant text. This partially eliminated a source of error that was identified by Canicatti and Mayer et al. However, due to formatting inconsistencies we were not able to replace the notation for a song's chorus with the text itself. Instead, we used the count of these annotations in the NL feature set for the SVM and included them in the vocabulary for the neural network. Upon successfully cleaning the dataset it was reduced from 380,000 to 175,000 song entries.
 
 \begin{figure}[h]
 \centering
@@ -62,7 +62,7 @@ Our first essential task was to clean the data in order to eliminate non-viable 
 
 \subsection{NL Feature Set Generation}
 
-Among the data preprocessing, the generation of a NL feature set for use by the SVM was also required. The NL feature set generated for each song has 22 features which were extracted using Python NLTK (See Table I). These features fall broadly into three categories: text aggregations, part of speech (POS) counts, and rhyme scheme analysis. The text aggregations included features such as average number of syllables per line and word count, while aimed to help the model learn the general shape of the lyrics. The POS counts recorded the semantic breakdown of the lyrics, though infrequently used POS were not included in the feature set. While the categorizations provided by NLTK are extremely fine grained, in an effort not to overwhelm our model with features we chose to bucket them into broader categories. For example, comparative adjectives and superlative adjectives were both classed as simply adjectives which may have resulted in some loss of accuracy. Finally, we used the Carnegie Mellon pronunciation dictionary to perform rhyme scheme analysis. Due to the differences between the vocabularies of our lyrics and dictionary we were unable to access the phonetic breakdown of certain words. However, in general we were able to generate a rhyme scheme string for each set of lyrics and were encoded using letters. We contemplated using these raw encodings but observed that the model might not recognize the similarity between songs without identical rhyme schemes. Therefore, we opted instead to include counts of three common rhyme scheme sequences - AA, ABBA, ABAB, in the feature set.
+Among the data preprocessing, the generation of a NL feature set for use by the SVM was also required. The NL feature set generated for each song has 22 features which were extracted using Python NLTK (See Table I). These features fall broadly into three categories: text aggregations, part of speech (POS) counts, and rhyme scheme analysis. The text aggregations included features such as average number of syllables per line and word count, while aimed to help the model learn the general shape of the lyrics. The POS counts recorded the semantic breakdown of the lyrics, though infrequently used POS were not included in the feature set. While the categorizations provided by NLTK are extremely fine grained, in an effort not to overwhelm our model with features we chose to bucket them into broader categories. For example, comparative adjectives and superlative adjectives were both classed as simply adjectives, which may have resulted in some loss of accuracy. Finally, we used the Carnegie Mellon pronunciation dictionary to perform rhyme scheme analysis. Due to the differences between the vocabularies of our lyrics and dictionary we were unable to access the phonetic breakdown of certain words. However, in general we were able to generate a rhyme scheme string for each set of lyrics which was encoded, as per convention, using letters. We contemplated using these raw encodings but observed that the model might not recognize the similarity between songs without identical rhyme schemes. Therefore, we opted instead to include counts of three common rhyme scheme sequences - AA, ABBA, ABAB, in the feature set.
 
 \begin{table}[h!]
     \label{tab:table1}
@@ -93,7 +93,7 @@ After cleaning our lyrics and extracting the necessary NL features to be used as
 
 For training and testing our models, we used a 80\% train and 20\% test split, and ran the model with the Linear, Poly, Sigmoid, and RBF kernel functions. For each kernel function, we tried slack variable coefficients 1, 50, and 100. The early results showed that Sigmoid performed consistently worse in terms of accuracy than the other functions therefore, due to time and computational constraints, we stopped training it early on in the process.
 
-	In total, we trained SVMs on three different datasets. The first, separated the dataset into either being Rock or not Rock, before training our models. The second, performed multi-class classification on our entire dataset. Finally, our third dataset, was a stratified dataset that contained an equal distribution of each of the ten genres.
+	In total, we trained SVMs on three different datasets. The first separated the dataset into either being Rock or not Rock, before training our models. The second, performed multi-class classification on our entire dataset. Finally, our third dataset, was a stratified dataset that contained an equal distribution of each of the ten genres.
 	
 	Our initial goal for creating the Rock or not Rock SVM was to test the features that we had extracted from the dataset before transferring those same features to multi-class classification. The model that we trained had an accuracy of 65\% on the features that we extracted from the lyrical data, in comparison a random classifier that always chose not Rock had an accuracy of 53\%. We then used those same features on both the non-stratified and stratified datasets to both determine how the overabundance of Rock songs found in the dataset influenced the models that we trained, and how well each of our models performed on the ten genres. Furthermore, the model trained on the stratified dataset could then be compared with results found in related works along with our Recurrent Neural Network.  
 
@@ -104,12 +104,12 @@ The Recurrent Neural Network (RNN) is designed to work with ordered sequential d
 \begin{figure}[h!]
 \centering
 \includegraphics[width=6cm]{Figure_7}
-\caption{Encoded one-hot vectors.}
+\caption{Encoded one-hot vectors [8].}
 \end{figure}
 
 Ideally, we would have liked to have made several different flavours of neural networks, but due to the time constraints we could only feasibly make one. From the different kinds of recurrent neural networks (e.g. RNN, LSTM, CRNN, HAT, etc.), we chose a regular RNN for its simplicity and proven effectiveness, as reported by the related works discussed earlier.
 
-The RNN, implemented using pytorch nn.Linear layers, was designed to take one hot encoded words generated from the training set, as described above. The RNN consisted of 1 layer and 1 hidden state; the layer consisted of 256 neurons and the hiddens state had size 80, eight for each of the ten classes.
+The RNN, implemented using pytorch nn.Linear layers, was designed to take one hot encoded words generated from the training set, as described above. The RNN consisted of 1 layer and 1 hidden state; the layer consisted of 256 neurons and the hiddens state had size 80, eight for each of the ten classes. We used Cross Entropy loss, tanh activations, and the Adam optimizer: all provided by pytorch.
 
 We also made the decision to train the RNN on the stratified data, instead of the normal data,  since it was going to be learning its own features from the data it would have designed them based on the more frequently occurring genres and may have struggled to classify the less frequently occurring ones or else it might have taken much longer to develop features for them. 
  
@@ -254,19 +254,19 @@ Additional testing could have been performed on our stratified dataset, as due t
 
 Similar to how we examined the misclassifications that were being made between our stratified and non-stratified trained SVMs, we would have also liked to compare the misclassifications between the stratified SVM and the Recurrent Neural Network. In doing so, we would be able to examine which genres were classifiable by word identity vs. the genres that are classifiable via semantic elements.
 
-With more time available to work on neural net models, we would have like to enable CUDA libraries through pytorch so that we would be able to tweak the hyper parameters of the RNN more quickly and effectively. In addition to have tried other forms of recurrent neural nets, and perhaps try adding some of the features extracted for the SVM as part of the input data for the net. 
-
 Based on our results, we expect that the categories of genres can be classified by both word identity and semantic elements, however, we would have still liked to further analyze which specific genres benefitted from the word identity and which benefited from the semantic elements.
+
+With more time available to work on neural net models, we would have like to enable CUDA libraries through pytorch so that we would be able to tweak the hyper parameters of the RNN more quickly and effectively. In addition to have tried other forms of recurrent neural nets, and perhaps try adding some of the features extracted for the SVM as part of the input data for the net. 
 
 %-------------------------------------------------------------------------------------------------------------------
 \section{Ethical Implications}
 
-Theoretically, our models are learning the platonic ideal of a song in any given genre. Reverse engineering them, especially the neural network which focused on the content rather than the structure of the lyrics, could potentially generate a song with severe biases. For example, a Hip-Hop song generated by our RNN would have a high chance of containing strong language and racial slurs due to such words appearing frequently in the genre, however all the context of who is using those words and how they're directed is mostly, if not completely, lost with our model and so it's very likely that it could create lyrics that are offensive. 'prototypic' Hip-Hop song might necessarily contain racial slurs, according to our model, but this is not true in reality.
+Science is often conventionally viewed as an objective method of knowledge gathering. Such a view naively ignores the virtually inescapable bias found in the body of data used to test hypotheses, draw inferences, and form conclusions. We used a dataset of songs that were entirely European-centric and largely situated in North America. However, music is a global phenomenon, so drawing general conclusions about music genres based on our localized dataset would be misrepresentative.
 
-It is also must be noted that our model is biased towards the North American perception of genre  -- as the data was all in English and drawn from North American sources -- which is not necessarily universal.
+Moreover, our model may be misappropriated to disqualify non-European and non-North American cultures by dismissing their musical styles. Implicitly, the model has learned to classify Jazz based purely on attributes observed in North American Jazz lyrics, at the exclusion of Jazz from other regions. And so, our model could inadvertently support a discriminatory stance that claims that only a certain type of Jazz is "proper Jazz", dismissing all other styles as less worthy of contributing to the definition of a music genre. That is, our model could be employed to prevent certain groups of people from adding to the communal pool of knowledge regarding what defines and distinguishes a music genre; in fact, this is known as Testimonial Injustice, a type of Epistemic Injustice [9]. In this manner, our model is liable to both overgeneralization and exclusion.
 
 %-------------------------------------------------------------------------------------------------------------------
-
+\newpage
 \section{Distribution of Tasks Among Team Members}
 
 Each team member contributed to a specific area outlined below:
@@ -282,6 +282,7 @@ Each team member contributed to a specific area outlined below:
 	SVM & Anna Sollazzo, Henry Hart, Jordan Jay\\
 	Neural Net & Juan Carlos Gallegos, Robert Craig\\
 	Report Formatting/Latex & Henry Hart\\
+	Final Report & All\\
 	Presentation Slides & All\\
 
     \end{tabular}
@@ -307,6 +308,10 @@ A.~Canicatti (2016), \emph{ "Song Genre Classification via Lyric Text Mining."} 
 \bibitem{mayer} (2008) R.~Mayer, R.~Neumayer, and A.~Rauber., \emph{" Rhyme and Style Features for Musical Genre Classification by Song Lyrics"} \relax Vortrag: International Conference on Music Information Retrieval (ISMIR) Philadeliphia, USA; 14.09. 2008-18.09. 2008; in:" Proceedings of the 9th International Conference on Music Information Retrieval",(2008), S. 337-342.
 
 \bibitem{kaggle} Kaggle~Datasets (2017), \emph{380,000+ Lyrics From MetroLyrics}, \relax https://www.kaggle.com/gyani95/380000-lyrics-from-metrolyrics
+
+\bibitem{encoder} L.~Khazan, (2016), \emph{Autoencoders and Word Embeddings}, \relax https://ayearofai.com/lenny-2-autoencoders-and-word-embeddings-oh-my-576403b0113a
+
+\bibitem{ethics} M.~Fricker, (2007), \emph{Epistemic Injustice: Power and the Ethics of Knowing}, \relax Oxford Scholarship Online. DOI:10.1093/acprof:oso/9780198237907.001.0001
 
 \end{thebibliography}
 
